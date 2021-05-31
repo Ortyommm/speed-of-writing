@@ -1,0 +1,96 @@
+$tablets: 768px;
+$less_than_tablets: 560px;
+body {
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+  background-color: #ccc;
+}
+
+.app {
+  padding: 50px;
+  margin: 0 auto;
+  height: 100vh;
+  width: 1200px;
+  @media (max-width: $tablets) {
+    width: 100%;
+    padding: 20px;
+  }
+  @media (max-width: $less_than_tablets) {
+    width: 100%;
+    padding: 5px;
+  }
+}
+
+.wordbox {
+  width: 80%;
+  height: 80px;
+  padding: 5px;
+  overflow: hidden;
+  font-size: 30px;
+  margin: 0 auto;
+  background-color: #fff;
+  @media (max-width: $tablets) {
+    width: 100%;
+  }
+}
+
+.info {
+  margin: 10px auto;
+}
+
+.time-remain-wrapper {
+  text-align: left;
+  display: inline-block;
+  width: 50%;
+}
+.wpm-wrapper {
+  text-align: right;
+  display: inline-block;
+  width: 50%;
+}
+.time-remain {
+  color: red;
+}
+
+.wpm {
+  color: green;
+}
+
+.input-wrapper {
+  margin-top: 40px;
+  text-align: center;
+}
+input {
+  position: relative;
+  width: 30%;
+  height: 45px;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 30px;
+  &:focus {
+    border: 2px green solid;
+  }
+  @media (max-width: $tablets) {
+    width: 60%;
+  }
+  @media (max-width: $less_than_tablets) {
+    width: 60%;
+  }
+}
+
+button {
+  position: absolute;
+  width: 5%;
+  height: 45px;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 20px;
+  @media (max-width: $tablets) {
+    width: 15%;
+  }
+  @media (max-width: $less_than_tablets) {
+    padding: 0;
+    font-size: 12px;
+    width: 15%;
+  }
+}
