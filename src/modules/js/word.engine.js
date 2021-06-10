@@ -30,5 +30,6 @@ export class WordEngine {
   displayWords() {
     this.selector.innerHTML = ''
     this.selector.insertAdjacentHTML('afterbegin', this.refactorWords(this.words))
+    document.querySelector(`#word_0`).style.backgroundColor = 'rgba(0,0,0,.1)'
   }
 }

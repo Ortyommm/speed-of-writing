@@ -9,21 +9,22 @@ export class Game {
     this.$words = $words
 
     this.wordLength = 0
-    this.seconds = 59
+    this.seconds = 60
     this.wpm = 0
     this.totalLength = 0
     this.wordCounter = 0
     this.words = words
+    this.lastWpm = 0
 
     this.wordEngine = new WordEngine(this.words, this.$words)
-    this.resetInterval = false
-    this.isGameStarted = false
+    this.resetted = false
     this.needReloadWords = true
+
   }
 
   start() {
-    this.isGameStarted = true
     this.updateInfo()
+
   }
   check() {
     if (this.$input.value[this.$input.value.length - 1] === ' ' && this.$input.value.slice(0, this.$input.value.length) === this.$words.innerText.slice(0, this.$input.value.length)) {
@@ -31,6 +32,7 @@ export class Game {
       this.wordLength += this.$input.value.length
       this.$input.value = ''
       this.wordCounter++
+      document.querySelector(`#word_${this.wordCounter}`).style.backgroundColor = 'rgba(0,0,0,.1)'
     } else if (this.$input.value.slice(0, this.$input.value.length) == this.$words.innerText.slice(0, this.$input.value.length)) {
       try { document.querySelector(`#word_${this.wordCounter}`).style.color = 'black' } catch { }
     }
@@ -52,38 +54,41 @@ export class Game {
     return Number(wpm).toFixed(1)
   }
   reset() {
-    if (this.isGameStarted) this.resetInterval = true
+
+    this.resetted = true//
     this.seconds = 60
     this.$words.innerHTML = ''
-    if (this.needReloadWords) { this.wordEngine.displayWords(); this.$timeDisplay.innerHTML = 60 }
+    if (this.needReloadWords) { this.wordEngine.displayWords(); this.$timeDisplay.textContent = 60 }
+
     this.wordLength = 0
     this.wpm = 0
     this.totalLength = 0
     this.wordCounter = 0
     this.$wpm.innerHTML = '0.0'
     this.$input.value = ''
-    this.isGameStarted = false
   }
   updateInfo() {
 
-    this.$wpm.innerHTML = '0.0'
-    if (!this.isGameStarted) this.$timeDisplay.innerHTML = this.seconds + 1
-    else this.$timeDisplay.innerHTML = this.seconds
-
-    const interval = setInterval(() => {
-      this.$wpm.innerHTML = '0.0'
-      this.$timeDisplay.innerHTML = this.seconds
-      this.$wpm.innerHTML = this.countWPM(this.$input.value.length)
+    const tick = () => {
+      // this.$wpm.textContent = '0.0'
+      this.$timeDisplay.textContent = this.seconds
+      this.$wpm.textContent = this.countWPM(this.$input.value.length)
       this.seconds--
-      if (this.seconds < 0 || this.resetInterval) {
-        clearInterval(interval)
+      if (this.seconds < 0 || this.resetted) {
+        clearInterval(timer)
         this.needReloadWords = false
-        if (!this.resetInterval) this.reset()
+        this.lastWpm = this.wpm
+        if (!this.resetted) this.reset()
+        this.$wpm.textContent = this.lastWpm.toFixed(1)
         this.needReloadWords = true
-        this.resetInterval = false
+        this.resetted = false
 
-        // else { this.resetInterval = false }
+        // else { this.resetted = false }
       }
-    }, 1000)
+    }
+    this.$wpm.textContent = '0.0'
+    this.$timeDisplay.textContent = this.seconds
+    tick()
+    const timer = setInterval(tick, 1000)
   }
 }
