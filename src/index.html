@@ -10,22 +10,34 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
   </head>
 
   <body>
     <div class="app">
-      <div class="wordbox">
-        <p class="words"></p>
-      </div>
-      <div class="info">
-        <div class="time-remain-wrapper">
-          Seconds remain: <span class="time-remain">60</span>
+      <div class="app--inner">
+        <div class="wordbox">
+          <p class="words"></p>
         </div>
-        <div class="wpm-wrapper">Your WPM is <span class="wpm">0.0</span></div>
-      </div>
-      <div class="input-wrapper">
-        <input type="text" />
-        <button type="submit">Refresh</button>
+        <div class="info">
+          <div class="time-remain-wrapper">
+            Seconds remain: <span class="time-remain">60</span>
+          </div>
+          <div class="wpm-wrapper">
+            Your WPM is <span class="wpm">0.0</span>
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <input type="text" class="input__word" />
+          <button type="submit" class="btn__restart">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
       </div>
     </div>
   </body>

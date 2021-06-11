@@ -3,14 +3,18 @@ $less_than_tablets: 560px;
 body {
   font-family: "Roboto", sans-serif;
   overflow: hidden;
-  background-color: #ccc;
+  background: linear-gradient(
+    90deg,
+    rgba(#fc466b, 0.8) 0%,
+    rgba(#3f5efb, 0.8) 100%
+  );
 }
-
 .app {
   padding: 50px;
   margin: 0 auto;
   height: 100vh;
   width: 1200px;
+
   @media (max-width: $tablets) {
     width: 100%;
     padding: 20px;
@@ -20,34 +24,44 @@ body {
     padding: 5px;
   }
 }
-
+.app--inner {
+  position: relative;
+  background: rgba(#fff, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+}
 .wordbox {
-  width: 80%;
+  box-shadow: 0px 0px 8px 5px rgba(34, 60, 80, 0.2);
+  width: 90%;
   height: 80px;
   padding: 5px;
   overflow: hidden;
   font-size: 30px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: rgba(#fff, 0.9);
+  border-radius: 10px;
   @media (max-width: $tablets) {
     width: 100%;
   }
 }
 
 .info {
-  margin: 10px auto;
+  position: absolute;
+  background-color: rgba(#fff, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  top: 80%;
+  left: 10%;
+}
+.word--active {
+  background-color: rgba(#000, 0.1);
+  border-radius: 8px;
+  padding: 0px 1px;
 }
 
-.time-remain-wrapper {
-  text-align: left;
-  display: inline-block;
-  width: 50%;
-}
-.wpm-wrapper {
-  text-align: right;
-  display: inline-block;
-  width: 50%;
-}
 .time-remain {
   color: red;
 }
@@ -59,16 +73,19 @@ body {
 .input-wrapper {
   margin-top: 40px;
   text-align: center;
+  flex-grow: 2;
+  justify-self: center;
 }
 input {
   position: relative;
   width: 30%;
   height: 45px;
   padding: 5px;
+  border: none;
   border-radius: 10px;
   font-size: 30px;
   &:focus {
-    border: 2px green solid;
+    border: 2px rgba(green, 0.2) solid;
   }
   @media (max-width: $tablets) {
     width: 60%;
@@ -80,6 +97,7 @@ input {
 
 button {
   position: absolute;
+  border: none;
   width: 5%;
   height: 45px;
   padding: 5px;
@@ -92,5 +110,8 @@ button {
     padding: 0;
     font-size: 12px;
     width: 15%;
+  }
+  i {
+    transition: all 0.5s;
   }
 }
