@@ -7,6 +7,8 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
 
 // const webpackDevServer = require('webpack-dev-server')
+const isDev = process.env.NODE_ENV === 'development'
+const isProd = !isDev
 
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
@@ -18,7 +20,7 @@ module.exports = {
     },
   },
   target: process.env.NODE_ENV === "development" ? "web" : "browserslist",
-  devtool: 'source-map',
+  devtool: isProd ? 'source-map' : 'eval-cheap-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     host: '192.168.0.110',
@@ -60,12 +62,18 @@ module.exports = {
       {
         test: /\.(js|ts)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+        use: [
+          {
+            loader: 'thread-loader'
+          },
+          {
+
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-react']
+            }
+          },
+        ]
       },
       {
         test: /\.jsx$/,
@@ -89,6 +97,7 @@ module.exports = {
           },
         },
         extractComments: false,
+        // parallel: true
       }
     )],
   },
